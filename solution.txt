@@ -1,0 +1,69 @@
+CREATE TABLE team_details (
+    SI_No int,
+	Team_Name varchar(20),
+	Captain varchar(50),
+	Owners varchar(50),
+	Home_Ground varchar(50)
+);
+
+COPY team_details
+FROM 'C:\Users\ssaifali\Desktop\teamdetails.csv'
+DELIMITER ','
+CSV HEADER;
+
+select * from team_details
+
+SELECT COUNT(team_name)
+FROM team_details;
+
+CREATE TABLE fixtures (
+    Match_Number int,
+	Home_Team varchar(20),
+	Away_Team varchar(50),
+	Venue varchar(50),
+	Team_Won varchar(50),
+	Team_Lost varchar(50)
+);
+
+COPY team_details
+FROM 'C:\Users\ssaifali\Desktop\Fixtures.csv'
+DELIMITER ','
+CSV HEADER;
+
+select * from fixtures
+
+SELECT * FROM fixtures
+WHERE home_team='RCB';
+
+SELECT team_lost FROM fixtures
+WHERE venue='Kolkata';
+
+create table points (
+team_name varchar(50),
+no_of_wins int,
+no_of_losses int,
+points int
+);
+
+SELECT * FROM points
+ORDER BY points DESC;
+
+insert into points(team_name)
+SELECT COUNT(no_of_wins), team_name
+FROM points
+GROUP BY team_name
+HAVING COUNT(no_of_wins) > 8;
+
+insert into points(team_name)
+SELECT MAX(no_of_losses) AS most_losses
+FROM points;
+
+insert into points(team_name)
+SELECT team_name FROM points
+WHERE points BETWEEN 11 AND 15;
+
+SELECT no_of_losses FROM points
+WHERE team_name='PK';
+
+SELECT team_name FROM points
+WHERE points > 14;
